@@ -65,23 +65,13 @@ class DNS
   {
     self::$stringDNS = sprintf(
       "%s:host=%s;dbname=%s",
-      [
-        self::get('driver'),
-        self::get('host'),
-        self::get('database'),
-      ]
+      self::get('driver'),
+      self::get('host'),
+      self::get('database')
     );
     if (!empty(self::get('port')))
       self::$stringDNS .= ";port=".self::get('port');
 
     return self::$stringDNS;
-  }
-
-  /**
-   * @return string
-   */
-  public static function __toString(): string
-  {
-    return self::getParsed();
   }
 }
