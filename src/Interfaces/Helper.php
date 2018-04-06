@@ -10,16 +10,17 @@
 declare(strict_types=1);
 
 namespace HalimonAlexander\PDODecorator\Interfaces;
+
 // https://github.com/neerajsinghsonu/PDO_Class_Wrapper
 interface Helper
 {
-  public function displayHtmlTable(array $data);
+    public function displayHtmlTable(array $data);
 
-  public function formatSql(string $sql);
+    public function formatSql(string $sql);
 
-  public function highlightSql(string $sql);
+    public function highlightSql(string $sql);
   
-  public function setErrorLog();
+    public function setErrorLog();
 
-  public function showError();
+    public function showError();
 }

@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace HalimonAlexander\PDODecorator\Drivers;
 
-final class mysql implements \HalimonAlexander\PDODecorator\Interfaces\DatabaseDriver
+use HalimonAlexander\PDODecorator\Interfaces\DatabaseDriver;
+
+class Pgsql implements DatabaseDriver
 {
 }

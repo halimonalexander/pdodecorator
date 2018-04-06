@@ -13,28 +13,28 @@ namespace HalimonAlexander\PDODecorator\Classes;
 
 class Helper implements \HalimonAlexander\PDODecorator\Interfaces\Helper
 {
-  function displayHtmlTable(array $data)
-  {
-    // TODO: Implement displayHtmlTable() method.
-  }
+    public function displayHtmlTable(array $data)
+    {
+        // TODO: Implement displayHtmlTable() method.
+    }
 
-  function formatSql(string $sql)
-  {
-    // TODO: Implement formatSql() method.
-  }
+    public function formatSql(string $sql)
+    {
+        // TODO: Implement formatSql() method.
+    }
 
-  function highlightSql(string $sql)
-  {
-    // TODO: Implement highlightSql() method.
-  }
+    public function highlightSql(string $sql)
+    {
+        // TODO: Implement highlightSql() method.
+    }
 
-  function setErrorLog()
-  {
-    // TODO: Implement setErrorLog() method.
-  }
+    public function setErrorLog()
+    {
+        // TODO: Implement setErrorLog() method.
+    }
 
-  function showError()
-  {
-    // TODO: Implement showError() method.
-  }
+    public function showError()
+    {
+        // TODO: Implement showError() method.
+    }
 }

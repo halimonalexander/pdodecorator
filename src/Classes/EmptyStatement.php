@@ -1,4 +1,4 @@
-<?
+<?php
 /*
  * This file is part of PDODecorator.
  *
@@ -11,68 +11,72 @@ declare(strict_types=1);
 
 namespace HalimonAlexander\PDODecorator\Classes;
 
+use PDO;
+use stdClass;
+
 /**
  * Class EmptyStatement
  */
 class EmptyStatement extends AbstractStatement
 {
-  /** @inheritdoc */
-  public function fetchAll($style = \PDO::FETCH_ASSOC)
-  {
-    return [];
-  }
-
-  /** @inheritdoc */
-  public function fetchAssoc($fields = null)
-  {
-    return [];
-  }
-
-  /** @inheritdoc */
-  public function fetchClass()
-  {
-    return null;
-  }
-
-  /** @inheritdoc */
-  public function fetchCol($column = null)
-  {
-    return [];
-  }
-
-  /** @inheritdoc */
-  public function fetchObject()
-  {
-    return new \stdClass();
-  }
-
-  /** @inheritdoc */
-  public function fetchOne()
-  {
-    return null;
-  }
-
-  /** @inheritdoc */
-  public function fetchPair($leading_empty_val = false)
-  {
-    $result = [];
-
-    if ($leading_empty_val)
-      $result[] = ["" => ""];
-
-    return $result;
-  }
-
-  /** @inheritdoc */
-  public function fetchRow($style = \PDO::FETCH_ASSOC)
-  {
-    switch ($style) {
-      case \PDO::FETCH_ASSOC:
+    /** @inheritdoc */
+    public function fetchAll($style = PDO::FETCH_ASSOC)
+    {
         return [];
-      case \PDO::FETCH_OBJ:
-        return new \stdClass();
-      default:
+    }
+
+    /** @inheritdoc */
+    public function fetchAssoc($fields = null)
+    {
+        return [];
+    }
+
+    /** @inheritdoc */
+    public function fetchClass()
+    {
         return null;
     }
-  }
+
+    /** @inheritdoc */
+    public function fetchCol($column = null)
+    {
+        return [];
+    }
+
+    /** @inheritdoc */
+    public function fetchObject()
+    {
+        return new stdClass();
+    }
+
+    /** @inheritdoc */
+    public function fetchOne()
+    {
+        return null;
+    }
+
+    /** @inheritdoc */
+    public function fetchPair($leading_empty_val = false)
+    {
+        $result = [];
+
+        if ($leading_empty_val) {
+            $result[] = ["" => ""];
+        }
+
+        return $result;
+    }
+
+    /** @inheritdoc */
+    public function fetchRow($style = PDO::FETCH_ASSOC)
+    {
+        switch ($style) {
+            case PDO::FETCH_ASSOC:
+                return [];
+            case PDO::FETCH_OBJ:
+                return new stdClass();
+            default:
+                return null;
+        }
+    }
 }

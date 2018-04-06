@@ -11,10 +11,13 @@ declare(strict_types=1);
 
 namespace HalimonAlexander\PDODecorator\Classes;
 
+use HalimonAlexander\PDODecorator\Interfaces\Statement as StatementInterface;
+use PDOStatement;
+
 /**
  * Class AbstractStatement
  */
-abstract class AbstractStatement implements \HalimonAlexander\PDODecorator\Interfaces\Statement
+abstract class AbstractStatement implements StatementInterface
 {
   /**
    * @var int
@@ -26,10 +29,10 @@ abstract class AbstractStatement implements \HalimonAlexander\PDODecorator\Inter
    */
   protected $numRows = 0;
 
-  /** @var \PDOStatement|null */
+  /** @var PDOStatement|null */
   protected $statement = null;
 
-  function affectedRows()
+  public function affectedRows()
   {
     return $this->numRows ?: $this->affectedRows;
   }

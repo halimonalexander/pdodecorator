@@ -13,42 +13,46 @@ namespace HalimonAlexander\PDODecorator\Classes;
 
 trait ArrayDecoratorTrait
 {
-  /**
-   *
-   */
-  public function arrayToXml($array)
-  {
-    $xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>';
-    foreach ( $array as $key => $value ) {
-      $xml .= "<xml_data>";
+    /**
+     *
+     */
+    public function arrayToXml($array)
+    {
+        $xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>';
+        foreach ($array as $key => $value) {
+            $xml .= "<xml_data>";
       
-      if ( is_array( $value ) )
-        foreach ( $value as $k => $v )
-          $xml .= "<$k><![CDATA[$v]]></$k>";
-      else
-        $xml .= "<$key><![CDATA[$value]]></$key>";
+            if (is_array($value)) {
+                foreach ($value as $k => $v) {
+                    $xml .= "<$k><![CDATA[$v]]></$k>";
+                }
+            } else {
+                $xml .= "<$key><![CDATA[$value]]></$key>";
+            }
       
-      $xml .= "</xml_data>";
-    }
-    $xml .= "</root>";
+            $xml .= "</xml_data>";
+        }
+        $xml .= "</root>";
     
-    return $xml;
-  }
+        return $xml;
+    }
 
-  /**
-   * 
-   */
-  public function printArray($array)
-  {
-    echo '<pre style="text-align: left">'.print_r($array, true).'</pre>';
-  }
-
-  /**
-   * 
-   */
-  public function isAssoc($array)
-  {
-    return array_keys($array) !== range(0, count( $array ) - 1);
-  }
-
+    /**
+     * 
+     */
+    public function printArray($array): void
+    {
+        echo '<pre style="text-align: left">'.print_r($array, true).'</pre>';
+    }
+    
+    /**
+     * Checks if array is assoc
+     * 
+     * @param array $array
+     * @return bool
+     */
+    public function isAssoc(array $array): bool
+    {
+        return array_keys($array) !== range(0, count($array) - 1);
+    }
 }

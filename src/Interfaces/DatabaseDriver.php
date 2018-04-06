@@ -1,4 +1,4 @@
-<?
+<?php
 /*
  * This file is part of PDODecorator.
  *
@@ -14,5 +14,6 @@ namespace HalimonAlexander\PDODecorator\Interfaces;
 /**
  * Interface DatabaseDriver
  */
-interface DatabaseDriver{
+interface DatabaseDriver
+{
 }
