@@ -1,4 +1,4 @@
-<?php
+<?
 /*
  * This file is part of PDODecorator.
  *
@@ -9,28 +9,34 @@
  */
 declare(strict_types=1);
 
-namespace HalimonAlexander\PDODecorator\Classes;
+namespace Core\Classes;
 
 use PDO;
-use PDOStatement;
 
-/**
- * Class Statement
- */
-class FilledStatement
+class FilledStatement extends AbstractStatement
 {
-    public function __construct(PDOStatement $statement)
+    /**
+     * @inheritdoc
+     */
+    public function getAffectedRows(): int
     {
-        $this->statement = $statement;
-        $this->numRows = $statement->rowCount();
+        return $this->numRows ?: $this->affectedRows;
     }
-
+    
+    /** @inheritdoc */
+    public function getNumRows(): int
+    {
+        return $this->statement->rowCount();
+    }
+    
+    // new style
+    
     /** @inheritdoc */
     public function fetchAll($style = PDO::FETCH_ASSOC)
     {
         return $this->statement->fetchAll($style);
     }
-
+    
     /** @inheritdoc */
     public function fetchAssoc($fields, $unique = false)
     {
@@ -49,16 +55,16 @@ class FilledStatement
                 $result[ $row[$fields[0]] ][ $row[$fields[1]] ][] = $row;
             }
         }
-
+        
         return $result;
     }
-
+    
     /** @inheritdoc */
     public function fetchClass()
     {
         return $this->statement->fetch(PDO::FETCH_CLASS);
     }
-
+    
     /** @inheritdoc */
     public function fetchCol($column = null)
     {
@@ -68,22 +74,22 @@ class FilledStatement
         } else {
             $style = PDO::FETCH_ASSOC;
         }
-
+        
         $result = [];
         $rs = $this->fetchAll($style);
         foreach ($rs as $row) {
             $result[] = $row[$column];
         }
-
+        
         return $result;
     }
-
+    
     /** @inheritdoc */
     public function fetchObject()
     {
         return $this->statement->fetchAll(PDO::FETCH_OBJ);
     }
-
+    
     /** @inheritdoc */
     public function fetchOne($column = null)
     {
@@ -96,7 +102,7 @@ class FilledStatement
             return null;
         }
     }
-
+    
     /** @inheritdoc */
     public function fetchPair($leading_empty_val = false)
     {
@@ -105,17 +111,48 @@ class FilledStatement
         foreach ($rs as $row) {
             $result[$row[0]] = $row[1];
         }
-
+        
         if ($leading_empty_val) {
             array_unshift($result, ["" => ""]);
         }
-
+        
         return $result;
     }
-
+    
     /** @inheritdoc */
     public function fetchRow($style = PDO::FETCH_ASSOC)
     {
         return $this->statement->fetch($style);
+    }
+    
+    // Silver-style
+    
+    /** @inheritdoc */
+    public function as_array($style = PDO::FETCH_ASSOC)
+    {
+        return $this->statement->fetchAll($style);
+    }
+    
+    /** @inheritdoc */
+    function as_object()
+    {
+        return $this->statement->fetchAll(PDO::FETCH_OBJ);
+    }
+    
+    /** @inheritdoc */
+    function row($column = null, $style = PDO::FETCH_ASSOC)
+    {
+        if ($column === null)
+            return $this->statement->fetch($style);
+        
+        $rs = $this->statement->fetch(PDO::FETCH_OBJ);
+        
+        return isset($rs->{$column}) ? $rs->{$column} : null;
+    }
+    
+    /** @inheritdoc */
+    public function getOne()
+    {
+        return $this->statement->fetch(PDO::FETCH_COLUMN);
     }
 }

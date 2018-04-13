@@ -1,12 +1,45 @@
 <?php
+/*
+ * This file is part of PDODecorator.
+ *
+ * (c) Halimon Alexander <vvthanatos@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+declare(strict_types=1);
+
 namespace HalimonAlexander\PDODecorator\Statements;
 
-abstract class AbstractStatement
+use HalimonAlexander\PDODecorator\Interfaces\Statement;
+
+abstract class AbstractStatement implements Statement
 {
-    protected $statement;
-    protected $numRows;
+    /**
+     * @var int
+     */
+    protected $affectedRows = 0;
     
-    /** Get count of rows in result statement */
+    /**
+     * @var int
+     */
+    protected $numRows = 0;
+    
+    /** 
+     * @var PDOStatement|null
+     */
+    protected $statement;
+    
+    /**
+     * Get the amount of rows affected by the statement
+     */
+    // todo consider if public
+    abstract protected function getAffectedRows(): int;
+    
+    /**
+     * Get count of rows in result statement
+     */
+    // todo consider if public
     abstract protected function getNumRows(): int;
     
     public function __construct(PDOStatement $statement = null)
@@ -16,8 +49,31 @@ abstract class AbstractStatement
     }
     
     
+    // new style
     
+    /** @inheritdoc */
+    abstract public function fetchAll($style = PDO::FETCH_ASSOC);
     
+    /** @inheritdoc */
+    abstract public function fetchAssoc($fields, $unique = false);
+    
+    /** @inheritdoc */
+    abstract public function fetchClass();
+    
+    /** @inheritdoc */
+    abstract public function fetchCol($column = null);
+    
+    /** @inheritdoc */
+    abstract public function fetchObject();
+    
+    /** @inheritdoc */
+    abstract public function fetchOne($column = null);
+    
+    /** @inheritdoc */
+    abstract public function fetchPair($leading_empty_val = false);
+    
+    /** @inheritdoc */
+    abstract public function fetchRow($style = PDO::FETCH_ASSOC);
     
     // Silver-style
     
@@ -30,6 +86,7 @@ abstract class AbstractStatement
     /** @inheritdoc */
     abstract public function row($column = null, $style = PDO::FETCH_ASSOC);
     
+    /** @inheritdoc */
     abstract public function getOne();
     
     /** @inheritdoc */

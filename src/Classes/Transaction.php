@@ -11,7 +11,9 @@ declare(strict_types=1);
 
 namespace HalimonAlexander\PDODecorator\Classes;
 
-class Transaction implements \HalimonAlexander\PDODecorator\Interfaces\Transaction
+use HalimonAlexander\PDODecorator\Interfaces\Transaction as TransactionInterface;
+
+class Transaction implements TransactionInterface
 {
     public function back()
     {
