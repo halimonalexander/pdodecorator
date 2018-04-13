@@ -37,4 +37,12 @@ class Helper implements \HalimonAlexander\PDODecorator\Interfaces\Helper
     {
         // TODO: Implement showError() method.
     }
+    
+    public function implodeQuotation($list, $separator = ', ')
+    {
+        foreach ($list as $key => $item)
+            $list[ $key ] = $this->quote($item);
+        
+        return implode($separator, $list);
+    }
 }
