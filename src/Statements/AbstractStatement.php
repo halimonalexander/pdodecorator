@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace HalimonAlexander\PDODecorator\Statements;
 
+use PDO;
+use PDOStatement;
 use HalimonAlexander\PDODecorator\Interfaces\Statement;
 
 abstract class AbstractStatement implements Statement
@@ -81,13 +83,7 @@ abstract class AbstractStatement implements Statement
     abstract public function as_array($style = PDO::FETCH_ASSOC);
     
     /** @inheritdoc */
-    abstract public function as_object();
-    
-    /** @inheritdoc */
     abstract public function row($column = null, $style = PDO::FETCH_ASSOC);
-    
-    /** @inheritdoc */
-    abstract public function getOne();
     
     /** @inheritdoc */
     public function as_array_by_field($field)
@@ -97,37 +93,6 @@ abstract class AbstractStatement implements Statement
         $result = [];
         foreach ($rs as $row)
             $result[$row[$field]][] = $row;
-        
-        return $result;
-    }
-    
-    /** @inheritdoc */
-    public function as_array_by_field_uniq($field)
-    {
-        $rs = $this->as_array(PDO::FETCH_ASSOC);
-        
-        $result = [];
-        foreach ($rs as $row)
-            $result[$row[$field]] = $row;
-        
-        return $result;
-    }
-    
-    /** @inheritdoc */
-    public function column($column = null)
-    {
-        if ($column === null){
-            $style = PDO::FETCH_NUM;
-            $column = 0;
-        }
-        else
-            $style = PDO::FETCH_ASSOC;
-        
-        $rs = $this->as_array($style);
-        
-        $result = [];
-        foreach ($rs as $row)
-            $result[] = $row[$column];
         
         return $result;
     }

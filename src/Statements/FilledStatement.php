@@ -134,12 +134,6 @@ class FilledStatement extends AbstractStatement
     }
     
     /** @inheritdoc */
-    function as_object()
-    {
-        return $this->statement->fetchAll(PDO::FETCH_OBJ);
-    }
-    
-    /** @inheritdoc */
     function row($column = null, $style = PDO::FETCH_ASSOC)
     {
         if ($column === null)
@@ -148,11 +142,5 @@ class FilledStatement extends AbstractStatement
         $rs = $this->statement->fetch(PDO::FETCH_OBJ);
         
         return isset($rs->{$column}) ? $rs->{$column} : null;
-    }
-    
-    /** @inheritdoc */
-    public function getOne()
-    {
-        return $this->statement->fetch(PDO::FETCH_COLUMN);
     }
 }

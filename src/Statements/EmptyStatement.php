@@ -105,12 +105,6 @@ class EmptyStatement extends AbstractStatement
     }
     
     /** @inheritdoc */
-    public function as_object()
-    {
-        return new stdClass();
-    }
-    
-    /** @inheritdoc */
     public function row($column = null, $style = PDO::FETCH_ASSOC)
     {
         if ($column !== null)
@@ -120,11 +114,5 @@ class EmptyStatement extends AbstractStatement
             return [];
         
         return new stdClass();
-    }
-    
-    /** @inheritdoc */
-    public function getOne()
-    {
-        return null;
     }
 }
