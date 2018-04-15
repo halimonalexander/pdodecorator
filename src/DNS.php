@@ -43,8 +43,12 @@ class DNS
    */
   public static function get(string $field):string
   {
-    if (self::isRequired($field) && empty(self::$dns[$field]))
-      throw new \Exception('Fill the DNS');
+    if (empty(self::$dns[$field])) {
+      if (self::isRequired($field))
+        throw new \Exception('Fill the DNS');
+      else
+        return '';
+    }
 
     return self::$dns[$field];
   }
