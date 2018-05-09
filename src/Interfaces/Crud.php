@@ -11,23 +11,23 @@ declare(strict_types=1);
 
 namespace HalimonAlexander\PDODecorator\Interfaces;
 
-interface Statement
+interface Crud
 {
-  public function select();
+    public function select();
   
-  public function insert($table, $data);
+    public function insert($table, $data);
   
-  public function update();
+    public function update();
   
-  public function delete();
+    public function delete();
   
-  public function truncate($table);
+    public function truncate($table);
   
-  public function drop();
+    public function drop();
 
-  public function save();
+    public function save();
   
-  public function bulkInsert();
+    public function bulkInsert();
   
-  public function count();
+    public function count();
 }

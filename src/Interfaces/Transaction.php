@@ -13,7 +13,7 @@ namespace HalimonAlexander\PDODecorator\Interfaces;
 
 interface Transaction
 {
-  public function start();
-  public function end();
-  public function back();
+    public function start();
+    public function end();
+    public function back();
 }

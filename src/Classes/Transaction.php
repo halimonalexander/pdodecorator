@@ -11,20 +11,22 @@ declare(strict_types=1);
 
 namespace HalimonAlexander\PDODecorator\Classes;
 
-class Transaction implements \HalimonAlexander\PDODecorator\Interfaces\Transaction
-{
-  function back()
-  {
-    // TODO: Implement back() method.
-  }
-  
-  function end()
-  {
-    // TODO: Implement end() method.
-  }
+use HalimonAlexander\PDODecorator\Interfaces\Transaction as TransactionInterface;
 
-  function start()
-  {
-    // TODO: Implement start() method.
-  }
+class Transaction implements TransactionInterface
+{
+    public function back()
+    {
+        // TODO: Implement back() method.
+    }
+  
+    public function end()
+    {
+        // TODO: Implement end() method.
+    }
+
+    public function start()
+    {
+        // TODO: Implement start() method.
+    }
 }
