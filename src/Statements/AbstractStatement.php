@@ -15,7 +15,7 @@ use PDO;
 use PDOStatement;
 use HalimonAlexander\PDODecorator\Interfaces\Statement;
 
-abstract class AbstractStatement implements Statement
+abstract class AbstractStatement /*implements Statement*/
 {
     /**
      * @var int
@@ -63,7 +63,7 @@ abstract class AbstractStatement implements Statement
     abstract public function fetchClass();
     
     /** @inheritdoc */
-    abstract public function fetchCol($column = null);
+    abstract public function fetchColumn($column = null);
     
     /** @inheritdoc */
     abstract public function fetchObject();

@@ -51,7 +51,7 @@ class EmptyStatement extends AbstractStatement
     }
     
     /** @inheritdoc */
-    public function fetchCol($column = null)
+    public function fetchColumn($column = null)
     {
         return [];
     }
@@ -63,7 +63,7 @@ class EmptyStatement extends AbstractStatement
     }
     
     /** @inheritdoc */
-    public function fetchOne()
+    public function fetchOne($column = null)
     {
         return null;
     }

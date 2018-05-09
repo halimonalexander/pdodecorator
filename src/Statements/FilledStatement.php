@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-namespace Core\Classes;
+namespace HalimonAlexander\PDODecorator\Statements;
 
 use PDO;
 
@@ -22,8 +22,10 @@ class FilledStatement extends AbstractStatement
     {
         return $this->numRows ?: $this->affectedRows;
     }
-    
-    /** @inheritdoc */
+  
+    /**
+     * @inheritdoc
+     */
     public function getNumRows(): int
     {
         return $this->statement->rowCount();
@@ -66,7 +68,7 @@ class FilledStatement extends AbstractStatement
     }
     
     /** @inheritdoc */
-    public function fetchCol($column = null)
+    public function fetchColumn($column = null)
     {
         if ($column === null) {
             $style = PDO::FETCH_NUM;
@@ -126,14 +128,20 @@ class FilledStatement extends AbstractStatement
     }
     
     // Silver-style
-    
-    /** @inheritdoc */
+  
+    /**
+     * @inheritdoc
+     * @deprecated
+     */
     public function as_array($style = PDO::FETCH_ASSOC)
     {
         return $this->statement->fetchAll($style);
     }
-    
-    /** @inheritdoc */
+  
+    /**
+     * @inheritdoc
+     * @deprecated
+     */
     function row($column = null, $style = PDO::FETCH_ASSOC)
     {
         if ($column === null)

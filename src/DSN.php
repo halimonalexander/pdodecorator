@@ -11,21 +11,23 @@ declare(strict_types=1);
 
 namespace HalimonAlexander\PDODecorator;
 
-class DNS
+use Exception;
+
+class DSN
 {
-    private static $dns = [
+    private static $dsn = [
         "driver"   => null,
         "host"     => null,
         "port"     => null,
         "username" => null,
         "password" => null,
         "database" => null,
-        "shema"    => null,
+        "schema"   => null,
     ];
   
     private static $required = ["driver", "host", "database"];
 
-    private static $stringDNS = null;
+    private static $stringDSN = null;
 
     /**
      * @param string $field
@@ -39,15 +41,15 @@ class DNS
     /**
      * @param string $field
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
-    public static function get(string $field):string
+    public static function get(string $field): string
     {
-        if (self::isRequired($field) && empty(self::$dns[$field])) {
-            throw new \Exception('Fill the DNS');
+        if (self::isRequired($field) && empty(self::$dsn[$field])) {
+            throw new Exception('Fill the DNS');
         }
 
-        return self::$dns[$field];
+        return self::$dsn[$field];
     }
 
     /**
@@ -55,25 +57,25 @@ class DNS
      */
     public static function set($dns)
     {
-        self::$dns = $dns;
+        self::$dsn = $dns;
     }
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
-    public static function getParsed(): string
+    public static function getStringDSN(): string
     {
-        self::$stringDNS = sprintf(
-      "%s:host=%s;dbname=%s",
-      self::get('driver'),
-      self::get('host'),
-      self::get('database')
-    );
+        self::$stringDSN = sprintf(
+            "%s:host=%s;dbname=%s",
+            self::get('driver'),
+            self::get('host'),
+            self::get('database')
+        );
         if (!empty(self::get('port'))) {
-            self::$stringDNS .= ";port=".self::get('port');
+            self::$stringDSN .= ";port=".self::get('port');
         }
 
-        return self::$stringDNS;
+        return self::$stringDSN;
     }
 }
