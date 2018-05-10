@@ -34,10 +34,14 @@ class DSN
      * @return string
      * @throws Exception
      */
-    public static function get(string $field): string
+    public static function get(string $field): ?string
     {
-        if (self::isRequired($field) && empty(self::$dsn[$field])) {
-            throw new Exception('Fill the DSN');
+        if (!isset(self::$dsn[$field]) || empty(self::$dsn[$field])) {
+            if (self::isRequired($field)) {
+               throw new Exception('Fill the DSN field ' . $field);
+            }
+            
+            return null;
         }
 
         return self::$dsn[$field];
