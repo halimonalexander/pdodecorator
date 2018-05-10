@@ -42,27 +42,7 @@ class PDODecorator
   
     /** @var PDO */
     private $PDO;
-  
-    public function connect()
-    {
-        try {
-            $this->PDO = new PDO(DSN::getStringDSN(), DSN::get('username'), DSN::get('password'));
-            
-            $driver = DSN::get('driver');
-            if ($driver == 'pgsql') {
-                $shema = DSN::get('shema');
-            }
-        } catch (PDOException $e) {
-            echo 'Unable to connect: ' . $e->getMessage();
-        } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage();
-        }
-
-        if ($driver == 'pgsql' && empty($shema)) {
-            $this->query("SET search_path TO {$shema};");
-        }
-    }
-  
+    
     /**
      * Database connection init
      *
@@ -79,6 +59,32 @@ class PDODecorator
         $this->helper = new Classes\Helper();
         $this->transaction = new Classes\Transaction();
     }
+  
+    /** @inheritdoc */
+    public function __destruct()
+    {
+        $this->PDO = null;
+    }
+  
+    public function connect()
+    {
+        try {
+            $this->PDO = new PDO(DSN::getStringDSN(), DSN::get('username'), DSN::get('password'));
+            
+            $driver = DSN::get('driver');
+            if ($driver == 'pgsql') {
+                $shema = DSN::get('shema');
+            }
+        } catch (PDOException $e) {
+            echo 'Unable to connect: ' . $e->getMessage();
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+        
+        if ($driver == 'pgsql' && empty($shema)) {
+            $this->query("SET search_path TO {$shema};");
+        }
+    }
 
     /** @inheritdoc */
     public function query($sql)
@@ -93,10 +99,11 @@ class PDODecorator
         if (!$rs) {
             if ($this->errorReporting) {
             }
-            return new Classes\EmptyStatement();
+            
+            return new Statements\EmptyStatement();
         }
 
-        return new Classes\FilledStatement($rs);
+        return new Statements\FilledStatement($rs);
     }
 
     public function enableReporting()
@@ -106,11 +113,5 @@ class PDODecorator
     public function disableReporting()
     {
         $this->errorReporting = false;
-    }
-
-    /** @inheritdoc */
-    public function __destruct()
-    {
-        $this->PDO = null;
     }
 }

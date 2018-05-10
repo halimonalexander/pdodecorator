@@ -27,16 +27,7 @@ class DSN
   
     private static $required = ["driver", "host", "database"];
 
-    private static $stringDSN = null;
-
-    /**
-     * @param string $field
-     * @return bool
-     */
-    private static function isRequired(string $field): bool
-    {
-        return in_array($field, self::$required);
-    }
+    private static $stringDsn = null;
 
     /**
      * @param string $field
@@ -46,18 +37,18 @@ class DSN
     public static function get(string $field): string
     {
         if (self::isRequired($field) && empty(self::$dsn[$field])) {
-            throw new Exception('Fill the DNS');
+            throw new Exception('Fill the DSN');
         }
 
         return self::$dsn[$field];
     }
 
     /**
-     * @param array|string $dns
+     * @param array|string $dsn
      */
-    public static function set($dns)
+    public static function set($dsn)
     {
-        self::$dsn = $dns;
+        self::$dsn = $dsn;
     }
 
     /**
@@ -66,16 +57,25 @@ class DSN
      */
     public static function getStringDSN(): string
     {
-        self::$stringDSN = sprintf(
+        self::$stringDsn = sprintf(
             "%s:host=%s;dbname=%s",
             self::get('driver'),
             self::get('host'),
             self::get('database')
         );
         if (!empty(self::get('port'))) {
-            self::$stringDSN .= ";port=".self::get('port');
+            self::$stringDsn .= ";port=".self::get('port');
         }
 
-        return self::$stringDSN;
+        return self::$stringDsn;
+    }
+  
+    /**
+     * @param string $field
+     * @return bool
+     */
+    private static function isRequired(string $field): bool
+    {
+        return in_array($field, self::$required);
     }
 }
