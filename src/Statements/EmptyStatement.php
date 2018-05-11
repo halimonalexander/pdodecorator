@@ -94,8 +94,11 @@ class EmptyStatement extends AbstractStatement
     }
     
     // Silver-style
-    
-    /** @inheritdoc */
+  
+    /**
+     * @inheritdoc
+     * @deprecated
+     */
     public function as_array($style = PDO::FETCH_ASSOC)
     {
         if ($style == PDO::FETCH_ASSOC)
@@ -103,8 +106,11 @@ class EmptyStatement extends AbstractStatement
         else
             return new stdClass();
     }
-    
-    /** @inheritdoc */
+  
+    /**
+     * @inheritdoc
+     * @deprecated
+     */
     public function row($column = null, $style = PDO::FETCH_ASSOC)
     {
         if ($column !== null)

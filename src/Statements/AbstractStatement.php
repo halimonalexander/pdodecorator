@@ -78,14 +78,23 @@ abstract class AbstractStatement /*implements Statement*/
     abstract public function fetchRow($style = PDO::FETCH_ASSOC);
     
     // Silver-style
-    
-    /** @inheritdoc */
+  
+    /**
+     * @inheritdoc
+     * @deprecated
+     */
     abstract public function as_array($style = PDO::FETCH_ASSOC);
-    
-    /** @inheritdoc */
+  
+    /**
+     * @inheritdoc
+     * @deprecated
+     */
     abstract public function row($column = null, $style = PDO::FETCH_ASSOC);
-    
-    /** @inheritdoc */
+  
+    /**
+     * @inheritdoc
+     * @deprecated
+     */
     public function as_array_by_field($field)
     {
         $rs = $this->as_array(PDO::FETCH_ASSOC);
@@ -96,8 +105,11 @@ abstract class AbstractStatement /*implements Statement*/
         
         return $result;
     }
-    
-    /** @inheritdoc */
+  
+    /**
+     * @inheritdoc
+     * @deprecated
+     */
     public function as_list($leading_empty_val = false)
     {
         $result = $this->as_array(PDO::FETCH_KEY_PAIR);
