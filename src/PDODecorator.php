@@ -85,6 +85,11 @@ class PDODecorator
             $this->query("SET search_path TO {$shema};");
         }
     }
+    
+    public function getPdo(): PDO
+    {
+      return $this->PDO;
+    }
 
     /** @inheritdoc */
     public function query($sql)
@@ -104,6 +109,11 @@ class PDODecorator
         }
 
         return new Statements\FilledStatement($rs);
+    }
+    
+    public function quote(string $variable): string
+    {
+      return $this->PDO->quote($variable);
     }
 
     public function enableReporting()

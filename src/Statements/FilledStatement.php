@@ -95,13 +95,12 @@ class FilledStatement extends AbstractStatement
     /** @inheritdoc */
     public function fetchOne($column = null)
     {
-        $rs = $this->statement->fetch(PDO::FETCH_ASSOC);
         if ($column == null) {
-            return array_shift($rs);
-        } elseif (isset($rs[$column])) {
-            return $rs[$column];
+            return $this->statement->fetch(PDO::FETCH_COLUMN);
         } else {
-            return null;
+          $rs = $this->statement->fetch(PDO::FETCH_ASSOC);
+          
+          return $rs[$column] ?? null;
         }
     }
     
