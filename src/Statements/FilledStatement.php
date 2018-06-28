@@ -20,7 +20,7 @@ class FilledStatement extends AbstractStatement
      */
     public function getAffectedRows(): int
     {
-        return $this->numRows ?: $this->affectedRows;
+        return $this->statement->rowCount();
     }
   
     /**

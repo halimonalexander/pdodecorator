@@ -19,13 +19,13 @@ class EmptyStatement extends AbstractStatement
     /**
      * @inheritdoc
      */
-    protected function getAffectedRows(): int
+    public function getAffectedRows(): int
     {
         return 0;
     }
     
     /** @inheritdoc */
-    protected function getNumRows(): int
+    public function getNumRows(): int
     {
         return 0;
     }

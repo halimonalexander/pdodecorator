@@ -73,7 +73,7 @@ class PDODecorator
             
             $driver = DSN::get('driver');
             if ($driver == 'pgsql') {
-                $shema = DSN::get('shema');
+                $schema = DSN::get('schema');
             }
         } catch (PDOException $e) {
             echo 'Unable to connect: ' . $e->getMessage();
@@ -81,8 +81,8 @@ class PDODecorator
             echo 'Error: ' . $e->getMessage();
         }
         
-        if ($driver == 'pgsql' && empty($shema)) {
-            $this->query("SET search_path TO {$shema};");
+        if ($driver == 'pgsql' && !empty($schema)) {
+            $this->query("SET search_path TO {$schema};");
         }
     }
     
@@ -101,7 +101,7 @@ class PDODecorator
         $stop = microtime(true);
         $this->queriesTimes[] = $stop - $start;
     
-        if (!$rs) {
+        if ($rs === false) {
             if ($this->errorReporting) {
             }
             

@@ -18,36 +18,23 @@ use HalimonAlexander\PDODecorator\Interfaces\Statement;
 abstract class AbstractStatement /*implements Statement*/
 {
     /**
-     * @var int
-     */
-    protected $affectedRows = 0;
-    
-    /**
-     * @var int
-     */
-    protected $numRows = 0;
-    
-    /** 
      * @var PDOStatement|null
      */
     protected $statement;
     
     /**
-     * Get the amount of rows affected by the statement
+     * Get the amount of rows affected by the executed query
      */
-    // todo consider if public
-    abstract protected function getAffectedRows(): int;
+    abstract public function getAffectedRows(): int;
     
     /**
      * Get count of rows in result statement
      */
-    // todo consider if public
-    abstract protected function getNumRows(): int;
+    abstract public function getNumRows(): int;
     
     public function __construct(PDOStatement $statement = null)
     {
         $this->statement = $statement;
-        $this->numRows = $this->getNumRows();
     }
     
     
